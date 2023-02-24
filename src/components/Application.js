@@ -1,25 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react"; ///removed Fragment ??? w7d3
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
+import axios from "axios";
 
-const days = [
-  {
-    id: 1,
-    name: "Monday",
-    spots: 2,
-  },
-  {
-    id: 2,
-    name: "Tuesday",
-    spots: 5,
-  },
-  {
-    id: 3,
-    name: "Wednesday",
-    spots: 0,
-  },
-];
+
 
 const appointments = {
   "1": {
@@ -62,6 +47,14 @@ const appointments = {
 
 export default function Application(props) {
   const [day, setDay] = useState("Monday");
+  const [days, setDays] = useState([]);
+
+  useEffect(() => {
+    const URL = '/api/days';
+    axios.get(URL).then(response => {
+      setDays(response.data); // means the array of objects
+    });
+  }, []);
 
   return (
 
