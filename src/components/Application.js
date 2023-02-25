@@ -3,7 +3,7 @@ import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
 import axios from "axios";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 import { Logger } from "sass";
 
 export default function Application(props) {
@@ -18,7 +18,8 @@ export default function Application(props) {
     // you may put the line below, but will have to remove/comment hardcoded appointments variable // ?????????
   });
 
-  const dailyAppointments = getAppointmentsForDay(state, state.day); // added for retrieving appoinytments task
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const interviewers = getInterviewersForDay(state, state.day);
 
   useEffect(() => {
     const URLDays = '/api/days';
@@ -49,7 +50,7 @@ export default function Application(props) {
 
     return <Appointment
       key={appointment.id}
-      {...appointment} interview={interview} />;
+      {...appointment} interview={interview} interviewers={interviewers} />;
   });
 
   return (
