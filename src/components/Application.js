@@ -3,58 +3,47 @@ import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
 import axios from "axios";
-
-
-
-const appointments = {
-  "1": {
-    id: 1,
-    time: "12pm",
-  },
-  "2": {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 3,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  "3": {
-    id: 3,
-    time: "2pm",
-  },
-  "4": {
-    id: 4,
-    time: "3pm",
-    interview: {
-      student: "Archie Andrews",
-      interviewer: {
-        id: 4,
-        name: "Cohana Roy",
-        avatar: "https://i.imgur.com/FK8V841.jpg",
-      }
-    }
-  },
-  "5": {
-    id: 5,
-    time: "4pm",
-  }
-};
+import { getAppointmentsForDay } from "helpers/selectors";
+import { Logger } from "sass";
 
 export default function Application(props) {
-  const [day, setDay] = useState("Monday");
-  const [days, setDays] = useState([]);
+  const setDay = day => setState(prev => ({ ...prev, day }));
+
+
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    appointments: {},
+    interviewers: {}
+    // you may put the line below, but will have to remove/comment hardcoded appointments variable // ?????????
+  });
+
+  const dailyAppointments = getAppointmentsForDay(state, state.day); // added for retrieving appoinytments task
 
   useEffect(() => {
-    const URL = '/api/days';
-    axios.get(URL).then(response => {
-      setDays(response.data); // means the array of objects
+    const URLDays = '/api/days';
+    const URLApps = '/api/appointments';
+    const URLInterviewers = '/api/interviewers';
+
+    Promise.all([
+      axios.get(URLDays),
+      axios.get(URLApps),
+      axios.get(URLInterviewers)
+    ]).then((all) => {
+
+      // set your states here with the correct values...
+      setState(prev => ({
+        ...prev,
+        days: all[0].data,
+        appointments: all[1].data,
+        interviewers: all[2].data
+      }));
+
     });
   }, []);
+
+  // console.log('ALL:', all);
+  console.log('STATE INTERVIEWERS', state.interviewers);
 
   return (
 
@@ -67,7 +56,7 @@ export default function Application(props) {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList days={days} value={day} onChange={setDay} />
+          <DayList days={state.days} value={state.day} onChange={setDay} />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
@@ -76,11 +65,12 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {Object.values(appointments).map((appointment) =>
+        {dailyAppointments.map((appointment) => {
+          const interview = getInterview(state, appointment.interview);
           <Appointment
             key={appointment.id}
-            {...appointment} />
-        )};
+            {...appointment} interview={interview} />;
+        })}
       </section>
     </main>
   );
