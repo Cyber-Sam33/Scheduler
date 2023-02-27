@@ -4,7 +4,7 @@ export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
 
-  function transition(newMode, replace = false) { //not sure we need to pass newMode argument 
+  function transition(newMode, replace = false) { //true is an optional argument 
     if (!replace) {
       setHistory(prev => ([...prev, newMode] // newMode added to end of array
       ));
