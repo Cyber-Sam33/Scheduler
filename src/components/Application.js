@@ -5,99 +5,18 @@ import Appointment from "./Appointment";
 import axios from "axios";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 import { Logger } from "sass";
+import useApplicationData from "../hooks/useApplicationData";
 
 export default function Application(props) {
-  const setDay = day => setState(prev => ({ ...prev, day }));
+  const {
+    state,
+    setDay,
+    bookInterview,
+    cancelInterview
+  } = useApplicationData();
 
-
-  const [state, setState] = useState({
-    day: "Monday",
-    days: [],
-    appointments: {},
-    interviewers: {}
-    // you may put the line below, but will have to remove/comment hardcoded appointments variable // ?????????
-  });
-
-
-
-  useEffect(() => {
-    const URLDays = '/api/days';
-    const URLApps = '/api/appointments';
-    const URLInterviewers = '/api/interviewers';
-
-    Promise.all([
-      axios.get(URLDays),
-      axios.get(URLApps),
-      axios.get(URLInterviewers)
-    ]).then((all) => {
-
-      // set your states here with the correct values...
-      setState(prev => ({
-        ...prev,
-        days: all[0].data,
-        appointments: all[1].data,
-        interviewers: all[2].data
-      }));
-
-    });
-  }, []);
-
-
-
-  function bookInterview(id, interview) {
-    console.log(id, interview);
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-
-
-    const appID = `/api/appointments/${id}`;
-    return axios.put(appID, { interview }).then(() => {
-      // set your states here with the correct values...
-      setState({
-        ...state,
-        appointments
-      });
-    });
-  }
-
-  const cancelInterview = id => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: null
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-    return axios
-      .delete(`/api/appointments/${id}`)
-      .then(() => {
-        setState({
-          ...state,
-          appointments
-        });
-      });
-  };
-
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
-
-
-  console.log('STATE INTERVIEWERS', state.interviewers);
-  // const appointments = dailyAppointments.map((appointment) => {
-  //   const interview = getInterview(state, appointment.interview);
-
-
-  //   return <Appointment
-  //     key={appointment.id}
-  //     {...appointment} interview={interview} interviewers={interviewers} bookInterview={bookInterview} />;
-  // });
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   const appointments = dailyAppointments.map(appointment => {
     const { id, interview } = appointment;
@@ -139,4 +58,31 @@ export default function Application(props) {
     </main>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
