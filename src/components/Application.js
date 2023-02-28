@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react"; ///removed Fragment ??? w7d3
+import React from "react"; ///removed Fragment ??? w7d3
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
-import axios from "axios";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
-import { Logger } from "sass";
+// import { Logger } from "sass";
 import useApplicationData from "../hooks/useApplicationData";
 
 export default function Application(props) {
