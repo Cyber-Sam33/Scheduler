@@ -1,6 +1,7 @@
 import React from "react";
 import InterviewerListItem from "./InterviewerListItem";
 import "components/InterviewerList.scss";
+import PropTypes from 'prop-types';
 
 export default function InterviewerList(props) {
   console.log('this is PROPS: ', props);
@@ -16,7 +17,9 @@ export default function InterviewerList(props) {
     ></InterviewerListItem>
   );
 
-
+  InterviewerList.propTypes = {
+    interviewers: PropTypes.array.isRequired
+  };
 
   return (
     // <ul>{parsedDayInterviewerListItems}</ul>
