@@ -16,18 +16,6 @@ export default function Form(props) {
     props.onCancel();
   }
 
-  // function validate() {
-  //   if (student === "") {
-  //     setError("Student name cannot be blank");
-  //     return;
-  //   }
-
-
-
-
-  //   props.onSave(student, interviewer);
-  // }
-
   function validate() {
     if (student === "") {
       setError("Student name cannot be blank");
@@ -52,7 +40,6 @@ export default function Form(props) {
             name="name"
             type="text"
             placeholder="Enter Student Name"
-            //Get next two lines checked
             value={student}
             onChange={(event) => setStudent(event.target.value)}
             data-testid="student-name-input"

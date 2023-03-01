@@ -40,7 +40,6 @@ export default function Appointment(props) {
   }
 
   const handleDelete = (id) => {
-    // user has clicked confirm at this point
     transition(DELETE);
     props
       .cancelInterview(id)
@@ -53,7 +52,7 @@ export default function Appointment(props) {
   const confirmDelete = () => transition(CONFIRM);
   const handleEdit = () => transition(EDIT);
 
-  console.log('PROPS INTERVIEW------', props.interview);
+  console.log("PROPS INTERVIEW------", props.interview);
 
   return (
     <article className="appointment" data-testid="appointment">

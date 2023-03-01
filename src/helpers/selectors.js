@@ -8,7 +8,6 @@ export function getAppointmentsForDay(state, day) {
 
   const filteredAppointments = filterDay[0].appointments.map((appointment) => {
     return state.appointments[appointment];
-
   });
   return filteredAppointments;
 }
@@ -19,10 +18,9 @@ export function getInterview(state, interview) {
   }
   return {
     student: interview.student,
-    interviewer: state.interviewers[interview.interviewer]
+    interviewer: state.interviewers[interview.interviewer],
   };
 }
-
 
 export function getInterviewersForDay(state, day) {
   const filterDay = state.days.filter((currentDay) => currentDay.name === day);
@@ -35,8 +33,6 @@ export function getInterviewersForDay(state, day) {
 
   const filteredInterviewers = filterDay[0].interviewers.map((interviewer) => {
     return state.interviewers[interviewer];
-
   });
   return filteredInterviewers;
 }
-

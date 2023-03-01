@@ -7,7 +7,6 @@ describe("Navigation", () => {
   });
 
   it("should book an interview", () => {
-    // select the free appointment slot, which is Tuesday
     cy.contains("[data-testid=day]", "Tuesday")
       .click()
       .should("have.class", "day-list__item--selected");
