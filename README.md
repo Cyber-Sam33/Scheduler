@@ -25,6 +25,6 @@ Go to http://localhost:8080/ in your browser.
 
 ## Screenshots
 
-!["Screenshot of mobile-first-view"](https://github.com/Cyber-Sam33/tweeter/blob/master/docs/Mobile-first-view.png?raw=true)
-!["Screenshot of laptop-view"](https://github.com/Cyber-Sam33/tweeter/blob/master/docs/laptop-view.png?raw=true)
-!["Screenshot of tweet-box"](https://github.com/Cyber-Sam33/tweeter/blob/master/docs/tweet-box.png?raw=true)
+!["Screenshot of interview booking"](https://github.com/Cyber-Sam33/Scheduler/blob/master/docs/interview-booking.png?raw=true)
+!["Screenshot of appointment slots"](https://github.com/Cyber-Sam33/Scheduler/blob/master/docs/appointmnet-slots.png?raw=true)
+!["Screenshot of edit appointments"](https://github.com/Cyber-Sam33/Scheduler/blob/master/docs/edit-appointments.png?raw=true)
