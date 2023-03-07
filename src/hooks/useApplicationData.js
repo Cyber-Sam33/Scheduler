@@ -22,6 +22,7 @@ export default function ApplicationData(props) {
       axios.get(URLApps),
       axios.get(URLInterviewers),
     ]).then((all) => {
+      // set your states here with the corresponding values
       setState((prev) => ({
         ...prev,
         days: all[0].data,
@@ -31,6 +32,7 @@ export default function ApplicationData(props) {
     });
   }, []);
 
+  // add a spotsRemaining function each DAY OBJECT has one
   function updateSpots(state, appointments) {
     const daysObj = state.days.find((day) => day.name === state.day);
     let spots = 0;

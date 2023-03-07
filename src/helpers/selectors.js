@@ -1,10 +1,16 @@
+// all helper functions contained in this file
+
+//returns an array with length matching number of appointment for the day
+//and returns appoinment objects
 export function getAppointmentsForDay(state, day) {
   const filterDay = state.days.filter((currentDay) => currentDay.name === day);
   console.log("state", state);
   console.log("Filter Day", filterDay);
+  //if data, an empty array is returned
   if (!filterDay[0]) {
     return [];
   }
+
 
   const filteredAppointments = filterDay[0].appointments.map((appointment) => {
     return state.appointments[appointment];
@@ -12,6 +18,8 @@ export function getAppointmentsForDay(state, day) {
   return filteredAppointments;
 }
 
+
+// returns the interview data in object 
 export function getInterview(state, interview) {
   if (!interview) {
     return null;
@@ -22,6 +30,7 @@ export function getInterview(state, interview) {
   };
 }
 
+//returns an array with the correct interview objects
 export function getInterviewersForDay(state, day) {
   const filterDay = state.days.filter((currentDay) => currentDay.name === day);
   console.log("state", state);

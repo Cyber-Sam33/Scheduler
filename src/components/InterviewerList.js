@@ -3,6 +3,11 @@ import InterviewerListItem from "./InterviewerListItem";
 import "components/InterviewerList.scss";
 import PropTypes from "prop-types";
 
+// InterviewerList receives three props:
+// interviewers:array - an array of objects 
+// setInterviewer:function - a function that accepts an interviewer id and used by InterviewerListItem
+// interviewer:number - a number representing the id of the currently selected interviewer
+
 export default function InterviewerList(props) {
   console.log("this is PROPS: ", props);
 

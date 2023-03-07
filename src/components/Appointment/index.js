@@ -1,3 +1,5 @@
+// This index file is responisible for the FORM and controlling Appointment componentss
+
 import React from "react";
 import "./styles.scss";
 import Header from "./Header";
@@ -19,17 +21,21 @@ const EDIT = "EDIT";
 const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
+
+//transitions from SHOW view to EMPTY view
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
 
+  // student name and interviewer updated when save clicked
   function save(name, interviewer) {
     const interview = {
       student: name,
       interviewer,
     };
 
+    // the SAVE MODE is made when saving and it transitions to SHOW when interview being booked
     transition(SAVE);
     props
       .bookInterview(props.id, interview)
@@ -39,14 +45,17 @@ export default function Appointment(props) {
       .catch(() => transition(ERROR_SAVE, true));
   }
 
+  // When deletng the DELETE Mode displays, the interview is cancelled and it tranistions to EMPTY mode
   const handleDelete = (id) => {
+    // user has clicked confirm at this point
     transition(DELETE);
     props
       .cancelInterview(id)
       .then(() => {
         transition(EMPTY);
       })
-      .catch((err) => transition(ERROR_DELETE, true));
+      //transitions to SHOW if there is an error on deletion (swapped out ERROR_DELETE)
+      .catch((err) => transition(SHOW, true));
   };
 
   const confirmDelete = () => transition(CONFIRM);
